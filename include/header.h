@@ -7,7 +7,10 @@
 #define HEADER_H 
 
 typedef struct{
-    int menu;
+    int* data4;
+    char* data5;
+    int data4Size;
+    int data5Size;
 }Instance;
 
 //libs and macros
@@ -17,8 +20,13 @@ typedef struct{
 #include <stdbool.h>
 #define debug if(true)printf
 //helper functions
+Instance* initInstance();
 char* setString(char* string);
 char* input(char* string);
 void output(char* string);
+void loadData4(Instance* vars);
+void loadData5(Instance* vars);
+//question 1
+
 
 #endif
