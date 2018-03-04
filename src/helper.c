@@ -61,9 +61,9 @@ void loadData4(Instance* vars){
     vars->data4 = array;
     vars->data4Size = size;
     //debug
-    // for(int x=0; x<size; x++){
-    //     debug("debug D4: (%s)\n", vars->data4[x]);
-    // }//end for
+    for(int x=0; x<size; x++){
+        debug("debug D4: (%s)\n", vars->data4[x]);
+    }//end for
     fclose(filePointer);
 }//end func
 

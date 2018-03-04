@@ -31,6 +31,9 @@ void loadData4(Instance* vars);
 void loadData5(Instance* vars);
 //question 1.1
 void bruteforceAnagram(Instance* vars);
+//question 1.2
+char* bubbleSort(char* array);
+void presortAnagram(Instance* vars);
 
 
 #endif
