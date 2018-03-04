@@ -8,7 +8,7 @@
 void bruteforceAnagram(Instance* vars){
     //dec vars
     char* anagram = calloc(256, sizeof(char));
-    int numberOfAnagramFound;
+    int numberOfAnagramFound = 0;
 
     //ask for the anagram
     printf("Enter the string to find anagram: "); 
@@ -16,17 +16,31 @@ void bruteforceAnagram(Instance* vars){
     printf("\n");
     int anagramSize = strlen(anagram);
     bool foundAnagram = false;
+    
+    debug("debug: anagram = (%s)\n", anagram);
 
     //search for anagram through the array of data
     for(int x=0; x<vars->data4Size; x++){
         int currentDataStringSize = strlen(vars->data4[x]);
 
+        //if string sizez does not much dont bother counting
+        if(anagramSize != currentDataStringSize){
+            continue;
+        }//end if
+
+        foundAnagram = false;
+        int numberOfCharFound = 0;
+        char tempDataString[256];
+        strcpy(tempDataString, vars->data4[x]);
+
         //search if anagram found
         for(int y=0; y<currentDataStringSize; y++){
-            foundAnagram = false;
             for(int z=0; z<anagramSize; z++){
-                if(anagram[y] == anagram[z]){
+                //set the temp string char with another, to prevent duplicate count
+                if(anagram[y] == tempDataString[z]){
                     foundAnagram = true;
+                    numberOfCharFound++;
+                    tempDataString[z] = '!';
                 }//end if
             }//end for
             if(foundAnagram == false){
@@ -35,7 +49,7 @@ void bruteforceAnagram(Instance* vars){
         }//end for
 
         //print and count and anagram founds
-        if(foundAnagram == true){
+        if(foundAnagram == true && numberOfCharFound == strlen(anagram)){
             numberOfAnagramFound = numberOfAnagramFound + 1;
             printf("%d: %s\n", numberOfAnagramFound, vars->data4[x]);
         }//end if
