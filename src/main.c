@@ -24,13 +24,13 @@ int main(int argc, char** argv){
         printf("5) Exit\n");
         printf("Enter menu: "); 
         menu = input(menu); 
-        printf("\n");
+        //printf("\n");
 
         //menu condition
         if(strcmp(menu, "1") == 0){
             bruteforceAnagram(vars);
         }else if(strcmp(menu, "2") == 0){
-
+            presortAnagram(vars);
         }else if(strcmp(menu, "3") == 0){
 
         }else if(strcmp(menu, "4") == 0){

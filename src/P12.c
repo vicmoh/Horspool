@@ -21,7 +21,7 @@ char* bubbleSort(char* array){
             }//end if
         }//end for
     }//end for
-    debug("debug: bubsort = (%s)\n", tempArray);
+    //debug("debug: bubsort = (%s)\n", tempArray);
     return tempArray;
 }//end func
 
