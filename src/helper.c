@@ -36,15 +36,21 @@ void loadData4(Instance* vars){
     //dec vars
     FILE* filePointer = fopen("./assets/data_4.txt", "r");
     int size = 6000*5;
-    int* array = malloc(sizeof(int)*size);
+    char** array = malloc(sizeof(array)*size);
     debug("Loading data 4...\n");
     for(int x=0; x<size; x++){
-        fscanf(filePointer, "%d", &array[x]);
+        char tempString[256];
+        fscanf(filePointer, "%s", tempString);
+        array[x] = setString(tempString);
     }//end for
     debug("Data 4 loaded...\n");
     //return
     vars->data4 = array;
     vars->data4Size = size;
+    //debug
+    for(int x=0; x<size; x++){
+        debug("debug D4: (%s)\n", vars->data4[x]);
+    }//end for
     fclose(filePointer);
 }//end func
 

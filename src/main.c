@@ -26,7 +26,7 @@ int main(int argc, char** argv){
 
         //menu condition
         if(strcmp(menu, "1") == 0){
-            
+            bruteforceAnagram(vars);
         }else if(strcmp(menu, "2") == 0){
 
         }else if(strcmp(menu, "3") == 0){

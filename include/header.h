@@ -7,7 +7,7 @@
 #define HEADER_H 
 
 typedef struct{
-    int* data4;
+    char** data4;
     char* data5;
     int data4Size;
     int data5Size;
@@ -26,7 +26,8 @@ char* input(char* string);
 void output(char* string);
 void loadData4(Instance* vars);
 void loadData5(Instance* vars);
-//question 1
+//question 1.1
+void bruteforceAnagram(Instance* vars);
 
 
 #endif
