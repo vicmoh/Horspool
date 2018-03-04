@@ -17,7 +17,7 @@ run:
 	./bin/run
 
 valgrind:
-	valgrind -v --leak-check=full ./bin/run
+	valgrind --leak-check=full --show-leak-kinds=all ./bin/run
 
 clean:
 	rm bin/run

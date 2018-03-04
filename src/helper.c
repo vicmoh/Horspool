@@ -14,6 +14,19 @@ Instance* initInstance(){
     return new;
 }//end constructor
 
+void deleteInstance(Instance* vars){
+    free2DArray(vars->data4, vars->data4Size);
+    //free(vars->data5);
+    free(vars);
+}//end constructor
+
+void free2DArray(char** toBeFreed, int size){
+    for(int x=0; x<size; x++){
+        free(toBeFreed[size]);
+    }//end fpr
+    free(toBeFreed);
+}//end func
+
 char* setString(char* string){
     char* newString = calloc(strlen(string)+9, sizeof(char)* strlen(string)+9 );
     strcpy(newString, string);

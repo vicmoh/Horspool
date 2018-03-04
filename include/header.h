@@ -18,9 +18,12 @@ typedef struct{
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <malloc.h>
 #define debug if(true)printf
 //helper functions
 Instance* initInstance();
+void deleteInstance(Instance* vars);
+void free2DArray(char** toBeFreed, int size);
 char* setString(char* string);
 char* input(char* string);
 void output(char* string);

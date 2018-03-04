@@ -15,7 +15,6 @@ void bruteforceAnagram(Instance* vars){
     anagram = input(anagram); 
     printf("\n");
     int anagramSize = strlen(anagram);
-    bool foundAnagram = false;
     
     debug("debug: anagram = (%s)\n", anagram);
 
@@ -28,30 +27,36 @@ void bruteforceAnagram(Instance* vars){
             continue;
         }//end if
 
-        foundAnagram = false;
+        //dec vars for checking if its anagram
         int numberOfCharFound = 0;
-        char tempDataString[256];
+        char* tempDataString = calloc(256, sizeof(char));
+        char* tempAnagram = calloc(256, sizeof(char));
         strcpy(tempDataString, vars->data4[x]);
+        strcpy(tempAnagram, anagram);
 
         //search if anagram found
-        for(int y=0; y<currentDataStringSize; y++){
-            for(int z=0; z<anagramSize; z++){
+        for(int y=0; y<anagramSize; y++){
+            for(int z=0; z<currentDataStringSize; z++){
                 //set the temp string char with another, to prevent duplicate count
-                if(anagram[y] == tempDataString[z]){
-                    foundAnagram = true;
+                if(tempAnagram[y] == tempDataString[z]){
                     numberOfCharFound++;
-                    tempDataString[z] = '!';
+                    tempDataString[z] = 'X';
+                    tempAnagram[y] = 'x';
                 }//end if
             }//end for
-            if(foundAnagram == false){
-                break;
-            }//end if
         }//end for
 
         //print and count and anagram founds
-        if(foundAnagram == true && numberOfCharFound == strlen(anagram)){
+        //debug("debug: numCharFound = %d, anagramSize = %d, tempData = %s\n", numberOfCharFound, anagramSize, tempDataString);
+        if(numberOfCharFound == anagramSize){
+            debug("debug: numCharFound = %d, anagramSize = %d, tempData = %s\n", numberOfCharFound, anagramSize, tempDataString);
             numberOfAnagramFound = numberOfAnagramFound + 1;
             printf("%d: %s\n", numberOfAnagramFound, vars->data4[x]);
         }//end if
+
+        free(tempAnagram);
+        free(tempDataString);
     }//end for
+
+    free(anagram);
 }//end func

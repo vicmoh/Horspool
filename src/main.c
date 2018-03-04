@@ -7,12 +7,12 @@
 
 int main(int argc, char** argv){
     //dec vars
-    char* menu = calloc(1, sizeof(char)*256);
+    char* menu = calloc(256, sizeof(char));
     Instance* vars = initInstance();
 
     //load datas
     loadData4(vars);
-    loadData5(vars);
+    //loadData5(vars);
     
     //menu
     while(true){
@@ -22,7 +22,9 @@ int main(int argc, char** argv){
         printf("3) Brute force string search\n");
         printf("4) Horspool Algorithm\n");
         printf("5) Exit\n");
-        printf("Enter menu: "); menu = input(menu); printf("\n");
+        printf("Enter menu: "); 
+        menu = input(menu); 
+        printf("\n");
 
         //menu condition
         if(strcmp(menu, "1") == 0){
@@ -40,7 +42,8 @@ int main(int argc, char** argv){
             output("Invalid input, please re-enter\n");
         }//end if
     }//end while
-
+    
+    deleteInstance(vars);
     free(menu);
     return 0;
 }//end main
