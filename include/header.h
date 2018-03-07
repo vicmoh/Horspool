@@ -19,6 +19,7 @@ typedef struct{
 #include <stdlib.h>
 #include <stdbool.h>
 #include <malloc.h>
+#include <time.h>
 #define debug if(true)printf
 //helper functions
 Instance* initInstance();

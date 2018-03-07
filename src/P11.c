@@ -19,12 +19,13 @@ void bruteforceAnagram(Instance* vars){
     debug("debug: anagram = (%s)\n", anagram);
 
     //search for anagram through the array of data
+    time_t start = clock();
     for(int x=0; x<vars->data4Size; x++){
         int currentDataStringSize = strlen(vars->data4[x]);
 
         //if string sizez does not much dont bother counting
         if(anagramSize != currentDataStringSize){
-            continue;
+            continue;//commenting because its too fast
         }//end if
 
         //dec vars for checking if its anagram
@@ -57,6 +58,9 @@ void bruteforceAnagram(Instance* vars){
         free(tempAnagram);
         free(tempDataString);
     }//end for
+    time_t end = clock();
+    printf("Number of anagram found is %d\n", numberOfAnagramFound);
+    printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
 
     free(anagram);
 }//end func
