@@ -11,6 +11,7 @@ Instance* initInstance(){
     new->data5 = NULL;
     new->data4Size = 6000;
     new->data5Size = 1;
+    new->data4v2 = NULL;
     return new;
 }//end constructor
 
@@ -50,16 +51,25 @@ void loadData4(Instance* vars){
     FILE* filePointer = fopen("./assets/data_4.txt", "r");
     int size = 6000*5;
     char** array = malloc(sizeof(array)*size);
+    CustomArray* arrayForSorted = malloc(sizeof(CustomArray)*size);
     debug("Loading data 4...\n");
     for(int x=0; x<size; x++){
         char tempString[256];
+        char sortedTempString[256];
+        //for original
         fscanf(filePointer, "%s", tempString);
         array[x] = setString(tempString);
+        //for sorted
+        strcpy(sortedTempString, tempString);
+        arrayForSorted[x].original = setString(tempString);
+        qsort(sortedTempString, strlen(sortedTempString), sizeof(char), compareChar);
+        arrayForSorted[x].sorted = setString(sortedTempString);
     }//end for
     debug("Data 4 loaded...\n");
     //return
     vars->data4 = array;
     vars->data4Size = size;
+    vars->data4v2 = arrayForSorted;
     //debug
     for(int x=0; x<size; x++){
         debug("debug D4: (%s)\n", vars->data4[x]);

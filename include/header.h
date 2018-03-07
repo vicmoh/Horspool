@@ -7,10 +7,16 @@
 #define HEADER_H 
 
 typedef struct{
+    char* original;
+    char* sorted;
+}CustomArray;
+
+typedef struct{
     char** data4;
     char* data5;
     int data4Size;
     int data5Size;
+    CustomArray* data4v2;
 }Instance;
 
 //libs and macros
@@ -33,8 +39,8 @@ void loadData5(Instance* vars);
 //question 1.1
 void bruteforceAnagram(Instance* vars);
 //question 1.2
+int compareChar(const void* first, const void* second);
 char* bubbleSort(char* array);
 void presortAnagram(Instance* vars);
-
 
 #endif

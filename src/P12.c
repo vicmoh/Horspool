@@ -28,36 +28,33 @@ char* bubbleSort(char* array){
 int compareChar(const void* first, const void* second){
     char* firstChar = (char*)first;
     char* secondChar = (char*)second;
-    char result = *firstChar - *secondChar; 
+    int result = (int)(*firstChar) - (int)(*secondChar);
     return result;
 }//end func
 
-int compareString(const void* first, const void* second){
-    char* firstString = (char*)first;
-    char* secondString = (char*)second;
-    return strcmp(firstString, secondString);
+int compareCustomArray(const void* first, const void* second){
+    CustomArray* firstString = (CustomArray*)(first);
+    CustomArray* secondString = (CustomArray*)(second);
+    //debug("debug: compare custom %s = %s\n", firstString->sorted, secondString->sorted);
+    int result = strcmp(firstString->sorted, secondString->sorted);
+    return result;
 }//end func
 
-int binarySearch(char** array, int left, int right, char* beingSearched){
-    bool stop = false;
-    int numberFound = 0;
-    qsort(array, 30000, sizeof(char*), compareString);
-    while (left <= right){
-        int middle = left + (right-left)/2;
-        debug("debug: sorted = (%s)\n", array[middle]);
-        if (strcmp(array[middle], beingSearched) == 0){
-            stop = true;
-            numberFound++;
-        }else if(stop == true){
-            return numberFound;
-        }
-        if (strcmp(array[middle], beingSearched) == -1){
-            left = middle + 1;
-        }else{
-            right = middle - 1;
-        }//end if
-    }//end while
-    return -1;
+int binarySearch(CustomArray* array, int low, int high, char* beingSearched){
+    int middle;
+    if (low > high){
+        printf("Anagram not found\n");
+        return;
+    }//end if
+    middle = (low + high) / 2;
+    if(strcmp(array[middle].sorted, beingSearched) == 0){
+        debug("debug: search %s = %s\n", array[middle].sorted, beingSearched);
+        return middle;
+    }else if (strcmp(array[middle].sorted, beingSearched) > 0){
+        return binarySearch(array, low, middle - 1, beingSearched);
+    }else{
+        return binarySearch(array, middle + 1, high, beingSearched);
+    }//end if
 }//end func
 
 void presortAnagram(Instance* vars){
@@ -72,51 +69,23 @@ void presortAnagram(Instance* vars){
     int anagramSize = strlen(anagram);
     char* sortedAnagram = calloc(256, sizeof(char));
     strcpy(sortedAnagram, anagram);
-    qsort(sortedAnagram, strlen(sortedAnagram), sizeof(char), compareString);
+    qsort(sortedAnagram, strlen(sortedAnagram), sizeof(char), compareChar);
     
-    debug("debug: anagram = (%s)\n", anagram);
+    debug("debug: sorted anagram = (%s)\n", sortedAnagram);
 
     //search for anagram through the array of data
     clock_t start = clock();
-    //for(int x=0; x<vars->data4Size; x++){
-        int found = binarySearch(vars->data4, 0, vars->data4Size-1, sortedAnagram);
 
-        //int currentDataStringSize = strlen(vars->data4[x]);
+    qsort(vars->data4v2, vars->data4Size, sizeof(CustomArray), compareCustomArray);
 
-        //dec vars for checking if its anagram
-        //int numberOfCharFound = 0;
-        //bool stringIsTheSame = false;
-        //char* tempDataString = calloc(256, sizeof(char));
-        //char* tempAnagram = calloc(256, sizeof(char));
-        //strcpy(tempDataString, vars->data4[x]);
-        //strcpy(tempAnagram, anagram);
+    //debug
+    // for(int x=0; x<vars->data4Size; x++){
+    //     debug("debug: testing if sorted %s\n", vars->data4v2[x].sorted);
+    // }
 
-        //sort the chars with bubble sort
-        //char* tempSortedDataString = bubbleSort(tempDataString);
-        //qsort(tempAnagram, strlen(tempAnagram), sizeof(char), compareString);
-        //qsort(tempDataString, strlen(tempDataString), sizeof(char), compareString);
+    numberOfAnagramFound = binarySearch(vars->data4v2, 0, vars->data4Size-1, sortedAnagram);
 
-        //search if anagram found
-        // if(strcmp(tempDataString, sortedAnagram) == 0){
-        //     stringIsTheSame = true;
-        // }//end if
-
-        // //print and count and anagram founds
-        // //debug("debug: numCharFound = %d, anagramSize = %d, tempData = %s\n", numberOfCharFound, anagramSize, tempDataString);
-        // if(stringIsTheSame == true){
-        //     //debug("debug: numCharFound = %d, anagramSize = %d, tempData = %s\n", numberOfCharFound, anagramSize, tempDataString);
-        //     numberOfAnagramFound = numberOfAnagramFound + 1;
-        //     //printf("%d: %s\n", numberOfAnagramFound, vars->data4[x]);
-        // }//end if
-        // stringIsTheSame = false;
-
-        //free(tempSortedDataString);
-        //free(tempAnagram);
-        //free(tempDataString);
-    //}
     clock_t end = clock();
-    printf("Number of anagram found is %d\n", found);
+    printf("Number of anagram found is %d\n", numberOfAnagramFound);
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
-
-    free(anagram);
 }//end func

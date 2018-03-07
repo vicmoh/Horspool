@@ -32,7 +32,7 @@ int main(int argc, char** argv){
         }else if(strcmp(menu, "2") == 0){
             presortAnagram(vars);
         }else if(strcmp(menu, "3") == 0){
-
+            
         }else if(strcmp(menu, "4") == 0){
 
         }else if(strcmp(menu, "5") == 0){
@@ -43,7 +43,5 @@ int main(int argc, char** argv){
         }//end if
     }//end while
     
-    deleteInstance(vars);
-    free(menu);
     return 0;
 }//end main
