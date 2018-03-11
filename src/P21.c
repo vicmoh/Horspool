@@ -36,6 +36,8 @@ void bruteForceStringSearch(Instance* vars){
     }//end for
     time_t end = clock();
 
+    //ratio = patterShift / runningTime
+
     //print the outcome
     printf("Total number search found: %d\n", numberSearchFound);
     printf("Number of switches: %d\n", (int)(vars->data5Size - strlen(searchString)) );
