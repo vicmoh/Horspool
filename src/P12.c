@@ -41,20 +41,20 @@ int compareCustomArray(const void* first, const void* second){
 }//end func
 
 int binarySearch(CustomArray* array, int low, int high, char* beingSearched){
-    int middle;
     if (low > high){
         printf("Anagram not found\n");
         return;
     }//end if
-    middle = (low + high) / 2;
+    int middle = (low + high) / 2;
     if(strcmp(array[middle].sorted, beingSearched) == 0){
         debug("debug: search %s = %s\n", array[middle].sorted, beingSearched);
         return middle;
     }else if (strcmp(array[middle].sorted, beingSearched) > 0){
         return binarySearch(array, low, middle - 1, beingSearched);
-    }else{
+    }else if (strcmp(array[middle].sorted, beingSearched) < 0){
         return binarySearch(array, middle + 1, high, beingSearched);
     }//end if
+    return -1;
 }//end func
 
 void presortAnagram(Instance* vars){
@@ -73,9 +73,8 @@ void presortAnagram(Instance* vars){
     
     debug("debug: sorted anagram = (%s)\n", sortedAnagram);
 
-    //search for anagram through the array of data
+    //pre sort the data in the array
     clock_t start = clock();
-
     qsort(vars->data4v2, vars->data4Size, sizeof(CustomArray), compareCustomArray);
 
     //debug
@@ -83,22 +82,32 @@ void presortAnagram(Instance* vars){
     //     debug("debug: testing if sorted %s\n", vars->data4v2[x].sorted);
     // }
 
-    //print all the binary searh found
+    //search the anagram binary searh found
     int indexOftheAnagramFound = binarySearch(vars->data4v2, 0, vars->data4Size-1, sortedAnagram);
-    int iter = indexOftheAnagramFound;
-    while(true){
-        iter++;
-        if(strcmp(sortedAnagram, vars->data4v2->sorted[iter] != 0){
-            break;
-        }//end if
+    clock_t end = clock();
+    
+    //print the anagram found
+    if(indexOftheAnagramFound > -1){
+        numberOfAnagramFound++;
+        int iter = indexOftheAnagramFound;
+        printf("%d: %s\n", numberOfAnagramFound, vars->data4v2.original[iter]);
+        while(true){
+            iter++;
+            if(strcmp(sortedAnagram, vars->data4v2.sorted[iter] != 0){
+                break;
+            }//end if
+            printf("%d: %s\n", numberOfAnagramFound, vars->data4v2.original[iter]);
+        }//end while
+        iter = indexOftheAnagramFound;
+        while(true){
+            iter--;
+            if(strcmp(sortedAnagram, vars->data4v2.sorted[iter] != 0){
+                break;
+            }//end if
+        }//end while
+        printf("%d: %s\n", numberOfAnagramFound, vars->data4v2.original[iter]);
     }//end while
-    while(true){
-        iter--;
-        if(strcmp(sortedAnagram, vars->data4v2->sorted[iter] != 0){
-            break;
-        }//end if
-    }//end while
-
+    
     clock_t end = clock();
     printf("Number of anagram found is %d\n", numberOfAnagramFound);
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
