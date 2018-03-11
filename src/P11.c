@@ -13,7 +13,6 @@ void bruteforceAnagram(Instance* vars){
     //ask for the anagram
     printf("Enter the string to find anagram: "); 
     anagram = input(anagram); 
-    printf("\n");
     int anagramSize = strlen(anagram);
     debug("debug: anagram = (%s)\n", anagram);
 

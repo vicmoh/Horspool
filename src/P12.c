@@ -45,7 +45,6 @@ void presortAnagram(Instance* vars){
     //ask for the anagram
     printf("Enter the string to find anagram: "); 
     anagram = input(anagram); 
-    printf("\n");
     //int anagramSize = strlen(anagram);
     char* sortedAnagram = calloc(256, sizeof(char));
     strcpy(sortedAnagram, anagram);
@@ -76,6 +75,7 @@ void presortAnagram(Instance* vars){
             if(strcmp(sortedAnagram, vars->data4v2[iter].sorted) != 0){
                 break;
             }//end if
+            numberOfAnagramFound++;
             printf("%d: %s\n", numberOfAnagramFound, vars->data4v2[iter].original);
         }//end while
         iter = indexOftheAnagramFound;
@@ -84,8 +84,9 @@ void presortAnagram(Instance* vars){
             if(strcmp(sortedAnagram, vars->data4v2[iter].sorted) != 0){
                 break;
             }//end if
+            numberOfAnagramFound++;
+            printf("%d: %s\n", numberOfAnagramFound, vars->data4v2[iter].original);
         }//end while
-        printf("%d: %s\n", numberOfAnagramFound, vars->data4v2[iter].original);
     }//end while
     
     printf("Number of anagram found is %d\n", numberOfAnagramFound);

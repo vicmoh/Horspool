@@ -26,7 +26,7 @@ typedef struct{
 #include <stdbool.h>
 #include <malloc.h>
 #include <time.h>
-#define debug if(true)printf
+#define debug if(false)printf
 //helper functions
 Instance* initInstance();
 void deleteInstance(Instance* vars);

@@ -9,13 +9,13 @@ int main(int argc, char** argv){
     //dec vars
     char* menu = calloc(256, sizeof(char));
     Instance* vars = initInstance();
-
-    //load datas
-    loadData4(vars);
-    //loadData5(vars);
     
     //menu
     while(true){
+        //load datas
+        loadData4(vars);
+        //loadData5(vars);
+        
         //ask the user
         printf("1) Brute force anagrams\n");
         printf("2) Presort anagrams\n");
