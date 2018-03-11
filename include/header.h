@@ -40,7 +40,7 @@ void loadData5(Instance* vars);
 void bruteforceAnagram(Instance* vars);
 //question 1.2
 int compareChar(const void* first, const void* second);
-char* bubbleSort(char* array);
+int binarySearch(CustomArray* array, int low, int high, char* beingSearched);
 void presortAnagram(Instance* vars);
 
 #endif
