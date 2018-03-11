@@ -83,7 +83,21 @@ void presortAnagram(Instance* vars){
     //     debug("debug: testing if sorted %s\n", vars->data4v2[x].sorted);
     // }
 
-    numberOfAnagramFound = binarySearch(vars->data4v2, 0, vars->data4Size-1, sortedAnagram);
+    //print all the binary searh found
+    int indexOftheAnagramFound = binarySearch(vars->data4v2, 0, vars->data4Size-1, sortedAnagram);
+    int iter = indexOftheAnagramFound;
+    while(true){
+        iter++;
+        if(strcmp(sortedAnagram, vars->data4v2->sorted[iter] != 0){
+            break;
+        }//end if
+    }//end while
+    while(true){
+        iter--;
+        if(strcmp(sortedAnagram, vars->data4v2->sorted[iter] != 0){
+            break;
+        }//end if
+    }//end while
 
     clock_t end = clock();
     printf("Number of anagram found is %d\n", numberOfAnagramFound);
