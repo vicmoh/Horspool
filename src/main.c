@@ -15,7 +15,7 @@ int main(int argc, char** argv){
         //load datas
         loadData4(vars);
         //loadData5(vars);
-        
+
         //ask the user
         printf("1) Brute force anagrams\n");
         printf("2) Presort anagrams\n");
@@ -24,7 +24,6 @@ int main(int argc, char** argv){
         printf("5) Exit\n");
         printf("Enter menu: "); 
         menu = input(menu); 
-        //printf("\n");
 
         //menu condition
         if(strcmp(menu, "1") == 0){
