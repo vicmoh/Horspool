@@ -52,7 +52,7 @@ void loadData4(Instance* vars){
     int size = 6000*5;
     char** array = malloc(sizeof(array)*size);
     CustomArray* arrayForSorted = malloc(sizeof(CustomArray)*size);
-    debug("Loading data 4...\n");
+    printf("Loading data 4...\n");
     for(int x=0; x<size; x++){
         char tempString[256];
         char sortedTempString[256];
@@ -65,7 +65,7 @@ void loadData4(Instance* vars){
         qsort(sortedTempString, strlen(sortedTempString), sizeof(char), compareChar);
         arrayForSorted[x].sorted = setString(sortedTempString);
     }//end for
-    debug("Data 4 loaded...\n");
+    printf("Data 4 loaded...\n");
     //return
     vars->data4 = array;
     vars->data4Size = size;
@@ -82,7 +82,7 @@ void loadData5(Instance* vars){
     int size = 0;
     char* data = calloc(2, sizeof(char)); data[0] = '\0';
     char charBuffer;
-    debug("Loading data 5...\n");
+    printf("Loading data 5...\n");
     while(filePointer != NULL){
         charBuffer = getc(filePointer);
         if(charBuffer == EOF){
@@ -93,7 +93,7 @@ void loadData5(Instance* vars){
         data = realloc(data, sizeof(char)*(size+1));
         data[size] = '\0';
     }//end while
-    debug("Data 5 loaded...\n");
+    printf("Data 5 loaded...\n");
     //return
     vars->data5 = data;
     vars->data5Size = size;

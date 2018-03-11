@@ -36,11 +36,14 @@ char* input(char* string);
 void output(char* string);
 void loadData4(Instance* vars);
 void loadData5(Instance* vars);
-//question 1.1
+//1.1
 void bruteforceAnagram(Instance* vars);
-//question 1.2
+//1.2
 int compareChar(const void* first, const void* second);
 int binarySearch(CustomArray* array, int low, int high, char* beingSearched);
 void presortAnagram(Instance* vars);
+//2.1
+bool compareTwoString(const char* string1, const char* string2, int index);
+void bruteForceStringSearch(Instance* vars);
 
 #endif

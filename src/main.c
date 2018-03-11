@@ -14,7 +14,7 @@ int main(int argc, char** argv){
     while(true){
         //load datas
         loadData4(vars);
-        //loadData5(vars);
+        loadData5(vars);
 
         //ask the user
         printf("1) Brute force anagrams\n");
@@ -31,9 +31,9 @@ int main(int argc, char** argv){
         }else if(strcmp(menu, "2") == 0){
             presortAnagram(vars);
         }else if(strcmp(menu, "3") == 0){
-            
+            bruteForceStringSearch(vars);
         }else if(strcmp(menu, "4") == 0){
-
+            
         }else if(strcmp(menu, "5") == 0){
             output("Exiting program...\n");
             exit(0);
