@@ -5,53 +5,91 @@
 
 #include "header.h"
 
-void suffixes(char* string, int* suffix){
-    int stringSize = strlen(string);
-    int indexShift = 0, 
+Helper* initHelper(){
+    Helper new = malloc(sizeof(Helper));
+    new->length = 0;
+    new->numberRight = 0;
+    new->count = 0;
+    new->suffixIndex = 0;
+    return new;
+}//end constructor
 
-    suffix[stringSize-1] = stringSize;
-    int mostRightPattern = stringSize-1;
-    for(int x = stringSize-2; x >= 0; x--){
-        if (x > mostRightPattern && suffix[x + stringSize-indexShift-1] < x - mostRightPattern){
-            suffix[x] = suffix[x + stringSize-indexShift-1];
-        }else{
-            if (x < mostRightPattern){
-                mostRightPattern = x;
-                indexShift = x;
+GoodShift* initGoodShift(){
+    GoodShift new = malloc(sizeof(goodShift));
+    new->size = 0;
+    new->stringIndex = 0;
+    new->index = 0;
+    new->count = 0;
+    return new;
+}//end constructor
+
+Boyer* initBoyer(){
+    Boyer new = malloc(sizeof(Boyer));
+    new->found = 0;
+    new->count = 0;
+    new->patternShift = 0;
+    new->numberRight = 0;
+    new->flag = 0;
+    new->stringSize = 0;
+    return new;
+}//end constructor
+
+void readSuffix(char* string, char* suffix, int* stringIndex, int* numberRight, int* x, Helper* vars){
+    //read through all the letters in the suffix
+    while(*stringIndex < *x+1) {
+        if(*stringIndex > -1){
+            if(string[*stringIndex] == suffix[vars->suffixIndex]){
+                length = length + 1;
+                numberRight + numberRight + 1;
+            }else{
+                length = length + 1;
             }//end if
-            while(mostRightPattern >= 0 && string[mostRightPattern] == string[mostRightPattern + stringSize-indexShift-1]){
-                //--mostRightPattern;
-                mostRightPattern = mostRightPattern - 1;
-                suffix[x] = indexShift - mostRightPattern;
-            }//end while
-        }//end else
+        }//end if
+        *stringIndex = *stringIndex + 1;
+        vars->suffixIndex = vars->suffixIndex + 1;
+    }//end while
+}//end func
+
+void goodShiftTable(int suffixTable[], char* string){
+    GoodShift gs = initGoodShift();
+    gs->size = strlen(string);
+    char suffix[gs->size];
+    int suffixIndex = 0;
+
+    //Initialize elements in table to max
+    for(int x = gs->size-1; x>=0; x--){
+        suffixTable[x] = gs->size;
+    }//end for
+
+    for(int x = gs->size-1; x>=0; x--){
+        //Current index
+        gs->index=0;
+        gs->stringIndex = x, suffixIndex = x; 
+        //Building suffix
+        while(gs->stringIndex <= gs->size-1){
+            suffix[gs->index] = string[gs->stringIndex];
+            gs->index++;
+            gs->stringIndex++;
+        }//end while
+    
+        Helper* vars = initHelper();
+        int count = 0;
+        //Starting at first char not in the suffix
+        for(int x = gs->size-gs->index-1; x>=0; x--){
+            vars = initHelper();
+            //Moving back the size of the suffix
+            gs->stringIndex = x-gs->index-1;
+            readSuffix(string, suffix, &gs->stringIndex, &numberRight, &x, vars);
+            
+            count = count + 1;
+            //numright is equal to suffix length
+            if(vars->numberRight == length) {
+                suffixTable[suffixIndex] = count+gs->index-numberRight;
+                break;
+            }//end if
+        }//end for
     }//end for
 }//end func
- 
-void goodSuffixShift(char* string, int goodSuffix[]) {
-    int stringSize = strlen(string);
-    int suffix[stringSize] = 0;
-
-    for(int x = 0; x < stringSize; x++)
-        goodSuffix[x] = stringSize;
-    }//end for
-
-    suffixes(string, suffix);
-
-    for(int x = stringSize-1; x >= 0; x--){
-        if(suffix[x] == x+1){
-            for(int y=0 ; y < stringSize-1-x; y++){
-                if(goodSuffix[y] == stringSize){
-                    goodSuffix[y] = stringSize-x-1;
-                }//end if
-            }//end for
-        }//end if
-    }//end for
-
-    for(int x = 0; x <= stringSize-2; x++){
-        goodSuffix[stringSize-suffix[x]-1] = stringSize-x-1;
-    }//end fpr
-}//end for
 
 void badCharacterHeuristic(char* search, int* badCharacter, int size){
     for(int x=0; x<size; x++){
@@ -95,15 +133,49 @@ void boyerMoore(Instance* vars){
     //searching the word 
     int index = 0;
     int data5Size = strlen(vars->data5);
-    while(index <= data5Size-searchStringSize) {
-        for(int x = searchStringSize-1; x>=0 && searchString[x] == vars->data5[x+index]; x--){
-            if(x < 0) {
-                //when search is found
-                index = index + goodSuffix[0];
-            }else{
-                index = index + max(goodSuffix[x], badCharacter[vars->data5[x+index]]-searchStringSize+x+1);
-            }//end if
-        }//end for
+    Boyer* boyer = initBoyer();
+    boyer->stringSize = strlen(searchString)-1;
+    
+    for(int x =0; x<data5Size; x++){
+        int n = strlen(line[i]);
+
+        if(strlen(searchString) <= strlen(line[i])){
+            int j = 0;
+            while(j<n-m){
+                patternShift++;
+                count = 0;
+                flag = 0;
+                numRight = 0;
+                int k;
+                for(k =m-1; k>=0; k--){
+                    if(line[i][j+k] == searchString[k]){
+                        if(flag != 1){
+                            numRight++;
+                        }//end if
+                        count++;
+                    }else{
+                        flag = 1;
+                    }//end if
+                }
+                k = m - 1 - numRight;
+                if(count == m){
+                    found++;
+                }
+                int index = (unsigned char)line[i][j+k] - 32;
+                int badValue, goodValue;
+                goodValue = gST[m-numRight];
+                if(bST[index]-numRight > 0){
+                    badValue = bST[index]-numRight;
+                else{
+                    badValue = 1;
+                }
+                if(badValue>=goodValue){
+                    j = j + badValue;
+                }else{
+                    j = j + goodValue;
+                }
+            }
+        }
     }//end while
     time_t end = clock();
 

@@ -19,6 +19,27 @@ typedef struct{
     CustomArray* data4v2;
 }Instance;
 
+typedef struct{
+    int length;
+    int count;
+    int suffixIndex;
+}Helper;
+
+typedef struct{
+    int size;
+    int stringIndex;
+    int index;
+}GoodShift
+
+typedef struct{ 
+    int found;
+    int count;
+    int patternShift;
+    int numberRight;
+    int flag;
+    int stringSize;
+}Boyer;
+
 //libs and macros
 #include <string.h>
 #include <stdio.h>
@@ -50,8 +71,5 @@ void horspool(Instance* vars);
 void horspoolShiftTable(char* search, int table[], int tableSize);
 //2.3
 void boyerMoore(Instance* vars);
-void suffixes(char* string, int* suffix);
-void goodSuffixShift(char* string, int goodSuffix[]);
-void badCharacterHeuristic(char* search, int* badCharacter, int size);
 
 #endif
