@@ -5,7 +5,7 @@
 
 #include "header.h"
 
-void suffixes(char *string, int *suffix) {
+void suffixes(char* string, int* suffix){
     int stringSize = strlen(string);
     int indexShift = 0, 
 
@@ -13,7 +13,7 @@ void suffixes(char *string, int *suffix) {
     int mostRightPattern = stringSize-1;
     for(int x = stringSize-2; x >= 0; x--){
         if (x > mostRightPattern && suffix[x + stringSize-indexShift-1] < x - mostRightPattern){
-            suffix[x] = suff[x + stringSize-indexShift-1];
+            suffix[x] = suffix[x + stringSize-indexShift-1];
         }else{
             if (x < mostRightPattern){
                 mostRightPattern = x;
@@ -22,15 +22,15 @@ void suffixes(char *string, int *suffix) {
             while(mostRightPattern >= 0 && string[mostRightPattern] == string[mostRightPattern + stringSize-indexShift-1]){
                 //--mostRightPattern;
                 mostRightPattern = mostRightPattern - 1;
-                suff[x] = indexShift - mostRightPattern;
+                suffix[x] = indexShift - mostRightPattern;
             }//end while
         }//end else
     }//end for
 }//end func
  
-void goodSuffixShift(char *string, int goodSuffix[]) {
+void goodSuffixShift(char* string, int goodSuffix[]) {
     int stringSize = strlen(string);
-    int suffix[stringSize];
+    int suffix[stringSize] = 0;
 
     for(int x = 0; x < stringSize; x++)
         goodSuffix[x] = stringSize;
@@ -38,10 +38,10 @@ void goodSuffixShift(char *string, int goodSuffix[]) {
 
     suffixes(string, suffix);
 
-    for(int x = stringSize-1; x>=0; x--){
-        if (suffix[x] == x+1){
-            for (int y=0 ; y < stringSize-1-x; y++){
-                if (goodSuffix[y] == stringSize){
+    for(int x = stringSize-1; x >= 0; x--){
+        if(suffix[x] == x+1){
+            for(int y=0 ; y < stringSize-1-x; y++){
+                if(goodSuffix[y] == stringSize){
                     goodSuffix[y] = stringSize-x-1;
                 }//end if
             }//end for
@@ -63,7 +63,15 @@ void badCharacterHeuristic(char* search, int* badCharacter, int size){
     }//end for
 }//end func
 
-
+int max(int num1, int num2){
+    int result = 0;
+    if(num1 > num2){
+        result = num1;
+    }else{
+        result = num2;
+    }//end if
+    return result;
+}//end func
 
 void boyerMoore(Instance* vars){
     //dec vars
@@ -93,7 +101,7 @@ void boyerMoore(Instance* vars){
                 //when search is found
                 index = index + goodSuffix[0];
             }else{
-                index = index + MAX(goodSuffix[x], badCharacter[vars->data5[x+index]] - searchStringSize+x+1);
+                index = index + max(goodSuffix[x], badCharacter[vars->data5[x+index]]-searchStringSize+x+1);
             }//end if
         }//end for
     }//end while
