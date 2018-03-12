@@ -50,9 +50,10 @@ void horspool(Instance* vars){
     time_t end = clock();
 
     //Undergraduate Calendar
+    //outcome should be the same patter shift
 
     //print the outcome
     printf("Total number search found: %d\n", numberOfSearchFound);
-    printf("Number of pattern switches: %d\n", (int)(vars->data5Size - strlen(searchString)) );
+    printf("Number of pattern switches: %d\n", numberOfShift);
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
 }//end func
