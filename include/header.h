@@ -26,9 +26,9 @@ typedef struct{
     int suffixIndex; int shiftingIndex;
     //preprocess bad character vars
     // search vars
-    int shiftPaternBetweenSearch;
+    int shiftPatern;
     int paternLength;
-    int searchLength;
+    int dataLength;
     //table
     int* borderPosition;
     int* shift;

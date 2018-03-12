@@ -22,7 +22,7 @@ void horspool(Instance* vars){
     int table[tableSize];//1000 just in case
     char* searchString = calloc(256, sizeof(char));
     //ask for the anagram
-    printf("Enter the string to find anagram: "); 
+    printf("Enter the string to search: "); 
     searchString = input(searchString);
     //debug("debug: searchString = (%s)\n", searchString);
     

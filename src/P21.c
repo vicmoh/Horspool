@@ -22,7 +22,7 @@ bool compareTwoString(const char* string1, const char* string2, int index){
 void bruteForceStringSearch(Instance* vars){
     char* searchString = calloc(256, sizeof(char));
     //ask for the anagram
-    printf("Enter the string to find anagram: "); 
+    printf("Enter the string to search: "); 
     searchString = input(searchString);
 
     //keep shifting the char array till it finds the two string
