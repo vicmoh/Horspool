@@ -26,7 +26,7 @@ typedef struct{
 #include <stdbool.h>
 #include <malloc.h>
 #include <time.h>
-#define debug if(false)printf
+#define debug if(true)printf
 //helper functions
 Instance* initInstance();
 void deleteInstance(Instance* vars);
@@ -45,5 +45,8 @@ void presortAnagram(Instance* vars);
 //2.1
 bool compareTwoString(const char* string1, const char* string2, int index);
 void bruteForceStringSearch(Instance* vars);
+//2.2
+void horspool(Instance* vars);
+void horspoolShiftTable(char* search, int table[], int tableSize);
 
 #endif
