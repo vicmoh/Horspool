@@ -17,28 +17,23 @@ typedef struct{
     int data4Size;
     int data5Size;
     CustomArray* data4v2;
+    int numberOfSearchFound;
+    int numberOfPatternSwitch;
 }Instance;
 
 typedef struct{
-    int length;
-    int count;
-    int suffixIndex;
+    //prepocess good suffix vars
+    int suffixIndex; int shiftingIndex;
+    //preprocess bad character vars
+    
+    // search vars
+    int shiftPaternBetweenSearch;
+    int paternLength;
+    int paternLength;
+    //ouput vars
+    int numberOfSearchFound;
+    int numberOfPatternSwitch;
 }Helper;
-
-typedef struct{
-    int size;
-    int stringIndex;
-    int index;
-}GoodShift
-
-typedef struct{ 
-    int found;
-    int count;
-    int patternShift;
-    int numberRight;
-    int flag;
-    int stringSize;
-}Boyer;
 
 //libs and macros
 #include <string.h>

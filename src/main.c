@@ -36,7 +36,7 @@ int main(int argc, char** argv){
         }else if(strcmp(menu, "4") == 0){
             horspool(vars);
         }else if(strcmp(menu, "5") == 0){
-            
+            boyerMoore(vars);
         }else if(strcmp(menu, "6") == 0){
             output("Exiting program...\n");
             exit(0);

@@ -12,6 +12,8 @@ Instance* initInstance(){
     new->data4Size = 6000;
     new->data5Size = 1;
     new->data4v2 = NULL;
+    new->numberOfSearchFound = 0;
+    new->numberOfPatternSwitch = 0;
     return new;
 }//end constructor
 
