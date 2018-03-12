@@ -31,28 +31,28 @@ void horspool(Instance* vars){
     int index = 0;
     time_t start = clock();
     horspoolShiftTable(searchString, table, tableSize);
-    //debug("debug: data5Size = (%d)\n", vars->data4Size);
     int data5Size = strlen(vars->data5);
     int searchStringSize = strlen(searchString);
-    //debug("debug: strlen(data5) == (%d)\n", data5Size);
-    //debug("\n%s\n", vars->data5);
+    int numberOfShift = 0;
     while(index < data5Size - searchStringSize){
+        //this skips the problem with garbage value
         int newIndex = vars->data5[index + searchStringSize - 1];
         if(newIndex < 0){
             index++;
             newIndex = vars->data5[index + searchStringSize - 1]; 
-        }
-        //debug("debug: searchString found = (%s)\n", searchString);
+        }//end if
         if(searchString[searchStringSize - 1] == newIndex && memcmp(searchString, vars->data5 + index, searchStringSize - 1) == 0){
             numberOfSearchFound = numberOfSearchFound + 1;
-            //debug("debug: searchString found = (%s)\n", searchString);
         }///end if
+        numberOfShift++;
         index = index + table[newIndex];
     }//end fors
     time_t end = clock();
 
+    //Undergraduate Calendar
+
     //print the outcome
     printf("Total number search found: %d\n", numberOfSearchFound);
-    printf("Number of switches: %d\n", (int)(vars->data5Size - strlen(searchString)) );
+    printf("Number of pattern switches: %d\n", (int)(vars->data5Size - strlen(searchString)) );
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
 }//end func

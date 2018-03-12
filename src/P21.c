@@ -40,6 +40,6 @@ void bruteForceStringSearch(Instance* vars){
 
     //print the outcome
     printf("Total number search found: %d\n", numberSearchFound);
-    printf("Number of switches: %d\n", (int)(vars->data5Size - strlen(searchString)) );
+    printf("Number of pattern switches: %d\n", (int)(vars->data5Size - strlen(searchString)) );
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
 }//end func

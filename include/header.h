@@ -49,4 +49,6 @@ void bruteForceStringSearch(Instance* vars);
 void horspool(Instance* vars);
 void horspoolShiftTable(char* search, int table[], int tableSize);
 
+void boyerMoore(Instance* vars);
+
 #endif
