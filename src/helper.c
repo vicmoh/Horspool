@@ -45,7 +45,7 @@ char* input(char* string){
 void output(char* string){
     printf("----------<<<((( FEEDBACK )))>>>----------\n");
     printf("%s", string);
-    printf("----------------------------------------\n");
+    printf("------------------------------------------\n");
 }//end func
 
 void loadData4(Instance* vars){

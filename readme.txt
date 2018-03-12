@@ -1,4 +1,7 @@
-
+/***********************************
+ * Vicky Mohammad
+ * 0895381
+ ***********************************/
 
 -------------------------<<((  How to Run the Program  ))>>-------------------------- 
 
@@ -8,53 +11,67 @@
 
 --------------------------------<<((  Assumptions  ))>>------------------------------ 
 
-- Assumed that there can be multiple matches of a pattern on a single line
-- For calculating execution time, the time rounds to the nearest millisecond, meaning in P12 it is often 0 or 1. 
-- I calculate a total run time that adds up the execution times of the searches in P12.
-- The reason brute force takes longer as the word becomes bigger is because it compares all 
-the characters and doesn't break when one doesn't match (I believed this was a better representation of brute force)
-
+- WARNING!: the garbage value in the data file may cause the program to infinite loop or segfault!
+- Assuming that there can be multiple matches of a pattern on a single line
+- When running the program it the time depends on the computer hardware
+- If running time is 0.0000, It means that the time is faster than it can ouput hence, it is 0.0001
+- The brutes forces take much longer the longer the file
 
 --------------------------<<((  Analysis of Algoritms  ))>>---------------------------
+
+Test case   |    Brute Force     |      Horspool       |    Boyer-Moore      |   #
+------------------------------------------------------------------------------------
+"university"|3296581/187 = 17,628| 430549/15 = 28,703  | 2983147/15 = 198,876 |  177 
+"admission" |3296582/171 = 19,278| 427335/15 = 28,489  | 2175318/15 = 145,021 |  1363
+"students"  |3296583/156 = 21,131| 505340/15 = 33,689  | 2561715/15 = 170,781 |  4201
+"running"   |3296584/140 = 23,547| 527136/15 = 35,142  | 3063934/31 = 98,836  |  0
+"school"    |3296585/125 = 26,372| 594187/15 = 39,612  | 2866365/15 = 191,091 |  211
+"money"     |3296586/109 = 30,243| 754346/15 = 50,289  | 3151914/31 = 101,674 |  2
+"test"      |3296587/93 = 33,447 | 920621/15 = 61,374  | 2877119/31 = 92,810  |  253
+"hey"       |3296588/78 = 42,263 | 1171961/15 = 78,130 | 3222204/15 = 214,813 |  431
+"ok"        |3296589/78 = 42,263 | 1691152/31 = 54,517 | 3291795/15 = 219,453 |  206
+"a"         |3296590/62 = 53,170 | 3296590/31 = 106,341| 3296590/15 = 219,772 |  212358
+-----------------------------------------------------------------------------------
+Avg Ratios: |      30,934        |       36,718        |       165,312        |
 
 # = occurances
 Ratio = Pattern Shift / Running Time = Shifts Per Milisecond.
 
-Test case   |    Brute Force     |      Horspool      |    Boyer-Moore     |   #
-------------------------------------------------------------------------------------
-"University"|2860109/106 = 26,982| 398561/29 = 13,743 | 398561/28 = 14,234 |  2345 
-"admission" |2904157/101 = 28,754| 399799/25 = 15,992 | 399799/25 = 15,992 |  1363
-"students"  |2948205/89 = 33,125 | 473852/28 = 16,923 | 472703/29 = 16,300 |  4201
-"trainer"   |2992253/86 = 34,794 | 564726/32 = 17,648 | 559557/31 = 18,050 |  0
-"School"    |3036301/70 = 43,376 | 562635/26 = 21,640 | 562635/27 = 20,838 |  172
-"hello"     |3080349/50 = 61,607 | 679755/30 = 22,658 | 679755/28 = 24,277 |  0
-"test"      |3124397/56 = 55,793 | 889922/30 = 29,664 | 889792/27 = 32,955 |  253
-"hey"       |3168445/38 = 83,380 | 1141735/31 = 36,830| 1141735/33 = 34,598|  431
-"yo"        |3212494/28 = 114,732| 1626602/29 = 57,633| 1626602/29 = 57,633|  960
-"I"         |3256543/17 = 191,561| 3256543/40 = 81,414| 3256543/38 = 85,699|  6168
------------------------------------------------------------------------------------
-Avg Ratios: |      67,410        |       31,415       |       32,058       |
 
-Notes:
+--------------------------<<((  About the Algorithm  ))>>---------------------------
 
-Amount of shifts:
-- The amount of shifts in Boyer-Moore is always equal-to or less-than horspool
- (The more reoccuring patterns in the search word, the less shifts for Boyer-Moore)
-- Brute force is always the max amount of shifts, as it moves by one each time
+- Bruteforce is easiest to implement but the least efficent, and takes time to search.
+- Horsepool is implemet, by shifting based on the wasted character to compare, hence it has lest
+patter switch and much faster to get to the work you are looking for
+- boyer-moore is used with bad character and a good suffix to shift to the next index, 
+it is supposedly to be faster when the search is a big length. 
 
-Ratios:
+---------------------------<<((  Amount of shifts  ))>>------------------------------
+
+- The amount of shifts in Boyer-Moore is always equal-to or less-than horspool, but for some reason
+I get a high number of pattern shift, I may calculate the pattern wrong 
+- Brute force is always the max amount of shifts, since I subtract based on input search
+the brute force patern decrease as my search length gets bigger
+
+---------------------------------<<((  Ratios:  ))>>----------------------------------
+
 - The ratio for brute force is often higher because it is doing many smaller shifts 
 per second, as it is only shifting by one position
-- The ratio for horspool and Boyer-Moore are almost identical, they often only 
-differ in execution time by a few miliseconds.
+- The ratio for horspool and Boyer-Moore are supposed to be identical, they often only 
+differ in execution time by a few miliseconds, but since the I may calculate the pattern
+wrong on the boyer wrong it cause gives the wrong output, but overall, the time is similar.
 
-Size of search word:
-- As the search word becomes bigger, brute force takes a longer time to execute and 
-its amount of shifts decreases slightly
-- As the search word becomes bigger, the run times for horspool and boyer-moore 
-remain at a somewhat consistent valye between 25-40. The amount of shifts decreases in both cases though
+---------------------------<<((  Size of search word ))>>------------------------------
 
-Efficiency:
--Brute force is the most effective when the search word is very small (1 character)
--Horspool and Boyer-Moore become more efficient than Brute Force after the search word 
-increases past size 1 and they stay consistant
+- when gradually searching bigger word, brute force takes a longer time to execute and 
+and the pattern shift deacrease buy a little bit based on how big the word search is
+- when gradually searching bigger words, the run times for horspool and boyer-moore 
+remain consistent value at around 01-40. The amount of shift for both decrease, but since
+I may miss calculate the booyer moore the patern was not undetical to horsepool then it should
+
+---------------------------------<<((  efficency ))>>----------------------------------
+
+- it is most effective for brute force when the search word is very small such as one character
+- when search is increase pass one chara cter Horspool and Boyer-Moore become more efficient, 
+and siginificantly faster.
+-time for horsepool and boyermoore is roughly more or less the same.

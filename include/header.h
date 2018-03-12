@@ -44,7 +44,7 @@ typedef struct{
 #include <stdbool.h>
 #include <malloc.h>
 #include <time.h>
-#define debug if(true)printf
+#define debug if(false)printf
 #define CHECK printf("CHECK\n")
 //helper functions
 Instance* initInstance();

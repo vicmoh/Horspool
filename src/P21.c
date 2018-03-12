@@ -24,6 +24,7 @@ void bruteForceStringSearch(Instance* vars){
     //ask for the anagram
     printf("Enter the string to search: "); 
     searchString = input(searchString);
+    printf("Calculating...\n"); 
 
     //keep shifting the char array till it finds the two string
     time_t start = clock();
@@ -39,7 +40,9 @@ void bruteForceStringSearch(Instance* vars){
     //ratio = patterShift / runningTime
 
     //print the outcome
+    printf("----------<<<((( FEEDBACK )))>>>----------\n");
     printf("Total number search found: %d\n", numberSearchFound);
     printf("Number of pattern switches: %d\n", (int)(vars->data5Size - strlen(searchString)) );
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
+    printf("----------------------------------------\n");
 }//end func

@@ -51,6 +51,7 @@ void presortAnagram(Instance* vars){
     qsort(sortedAnagram, strlen(sortedAnagram), sizeof(char), compareChar);
     
     debug("debug: sorted anagram = (%s)\n", sortedAnagram);
+    printf("Calculating...\n"); 
 
     //pre sort the data in the array
     clock_t start = clock();
@@ -88,7 +89,9 @@ void presortAnagram(Instance* vars){
             printf("%d: %s\n", numberOfAnagramFound, vars->data4v2[iter].original);
         }//end while
     }//end while
-    
+
+    printf("----------<<<((( FEEDBACK )))>>>----------\n");
     printf("Number of anagram found is %d\n", numberOfAnagramFound);
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
+    printf("----------------------------------------\n");
 }//end func

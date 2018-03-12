@@ -25,6 +25,7 @@ void horspool(Instance* vars){
     printf("Enter the string to search: "); 
     searchString = input(searchString);
     //debug("debug: searchString = (%s)\n", searchString);
+    printf("Calculating...\n"); 
     
     //calculate and search
     int numberOfSearchFound = 0;
@@ -35,6 +36,7 @@ void horspool(Instance* vars){
     int searchStringSize = strlen(searchString);
     int numberOfShift = 0;
     while(index < data5Size - searchStringSize){
+        numberOfShift++;
         //this skips the problem with garbage value
         int newIndex = vars->data5[index + searchStringSize - 1];
         if(newIndex < 0){
@@ -44,7 +46,6 @@ void horspool(Instance* vars){
         if(searchString[searchStringSize - 1] == newIndex && memcmp(searchString, vars->data5 + index, searchStringSize - 1) == 0){
             numberOfSearchFound = numberOfSearchFound + 1;
         }///end if
-        numberOfShift++;
         index = index + table[newIndex];
     }//end fors
     time_t end = clock();
@@ -53,7 +54,9 @@ void horspool(Instance* vars){
     //outcome should be the same patter shift
 
     //print the outcome
+    printf("----------<<<((( FEEDBACK )))>>>----------\n");
     printf("Total number search found: %d\n", numberOfSearchFound);
     printf("Number of pattern switches: %d\n", numberOfShift);
     printf("Execution time is %f seconds\n", (double)(end-start)/ (double)CLOCKS_PER_SEC);
+    printf("----------------------------------------\n");
 }//end func
