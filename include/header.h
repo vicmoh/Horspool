@@ -27,7 +27,7 @@ typedef struct{
     //preprocess bad character vars
     // search vars
     int shiftPatern;
-    int paternLength;
+    int patternLength;
     int dataLength;
     //table
     int* borderPosition;
@@ -45,6 +45,7 @@ typedef struct{
 #include <malloc.h>
 #include <time.h>
 #define debug if(true)printf
+#define CHECK printf("CHECK\n")
 //helper functions
 Instance* initInstance();
 void deleteInstance(Instance* vars);

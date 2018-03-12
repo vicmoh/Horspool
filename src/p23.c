@@ -12,7 +12,7 @@ Boyer* newBoyer(){
     new->suffixIndex=0;
     new->shiftingIndex=0;
     new->shiftPatern = 0;
-    new->paternLength = 0;
+    new->patternLength = 0;
     new->dataLength = 0;
     new->numberOfSearchFound = 0;
     new->numberOfPatternSwitch = 0;
@@ -22,12 +22,14 @@ Boyer* newBoyer(){
 }//end constructor
 
 void setTables(Boyer* vars, char* data, char* patern){
-    int paternLength = strlen(patern);
+    debug("calling setTables\n");
+    int patternLength = strlen(patern);
     int dataLength = strlen(data);
-    vars->paternLength = paternLength;
+    vars->patternLength = patternLength;
     vars->dataLength = dataLength;
-    vars->borderPosition = malloc(sizeof(int)*paternLength+1);
-    vars->shift = malloc(sizeof(int)*paternLength+1);
+    vars->borderPosition = malloc(sizeof(int)*patternLength+1);
+    vars->shift = malloc(sizeof(int)*patternLength+1);
+    debug("return setTables\n");
 }//end setter
 
 void setIndexToZero(Boyer* vars){
@@ -36,66 +38,66 @@ void setIndexToZero(Boyer* vars){
 }//end setter
 
 void setIndexForGoodSuffix(Boyer* vars){
-    vars->suffixIndex = vars->paternLength;
-    vars->shiftingIndex = vars->paternLength+1;
+    vars->suffixIndex = vars->patternLength;
+    vars->shiftingIndex = vars->patternLength+1;
 }//end setter
- 
-void preprocessGoodSuff(Boyer* boyer, char* patern){
-    setIndexForGoodSuffix(boyer);
-    boyer->borderPosition[boyer->suffixIndex]=boyer->shiftingIndex;
-    //loop through between the index
-    while(boyer->suffixIndex>0){
-        while(boyer->shiftingIndex<=boyer->paternLength && patern[boyer->suffixIndex-1] != patern[boyer->shiftingIndex-1]){
-            if (boyer->shift[boyer->shiftingIndex]==0){
-                boyer->shift[boyer->shiftingIndex] = boyer->shiftingIndex-boyer->suffixIndex;
+
+void preprocessGoodSuff(int *shift, int *borderPosition, char *searchString, Boyer* boyer){
+    int i=boyer->patternLength, j=boyer->patternLength+1;
+    borderPosition[i]=j;
+    while(i>0){
+        while(j<=boyer->patternLength && searchString[i-1] != searchString[j-1]){
+            if (shift[j]==0){
+                shift[j] = j-i;
             }//end if
-            boyer->shiftingIndex = boyer->borderPosition[boyer->shiftingIndex];
+            j = borderPosition[j];
         }//end while
-        boyer->suffixIndex = boyer->suffixIndex + 1;
-        boyer->shiftingIndex = boyer->shiftingIndex + 1;
-        boyer->borderPosition[boyer->suffixIndex] = boyer->shiftingIndex; 
+        i = i - 1;
+        j = j - 1;
+        borderPosition[i] = j;
     }//end while
 }//end func
- 
-void preprocessBadChar(Boyer* boyer, char* patern){
-    setIndexToZero(boyer);
-    boyer->shiftingIndex = boyer->borderPosition[0];
-    for(boyer->suffixIndex=0; boyer->suffixIndex<=boyer->paternLength; boyer->suffixIndex++){
-        if(boyer->shift[boyer->suffixIndex]==0){
-            boyer->shift[boyer->suffixIndex] = boyer->shiftingIndex;
+
+void preprocessBadChar(int *shift, int *borderPosition, Boyer* boyer){
+    int i, j;
+    j = borderPosition[0];
+    for(i=0; i<=boyer->patternLength; i++){
+        if(shift[i]==0){
+            shift[i] = j;
         }//end if
-        if (boyer->suffixIndex==boyer->shiftingIndex) {
-            boyer->shiftingIndex = boyer->borderPosition[boyer->shiftingIndex];
+        if (i==j){
+            j = borderPosition[j];
         }//end if
     }//end for
 }//end func
  
-Boyer* search(char* data, char* patern){
+Boyer* search(char *data, char *stringToBeSearched){
+    //dec vars
     Boyer* boyer = newBoyer();
-    setTables(boyer, data, patern);
+    setTables(boyer, data, stringToBeSearched);
+    //create shift table
+    int borderPosition[boyer->patternLength+1], shift[boyer->patternLength+1];
  
-    //initialize all occurence of shift to 0
-    for(boyer->suffixIndex=0;boyer->suffixIndex<boyer->paternLength+1;boyer->suffixIndex++){
-        boyer->shift[boyer->suffixIndex]=0;
+    for(int i=0;i<boyer->patternLength+1;i++){
+        shift[i]=0;
     }//end for
  
-    //do preprocessing
-    preprocessGoodSuff(boyer, patern);
-    preprocessBadChar(boyer, patern);
+    preprocessGoodSuff(shift, borderPosition, stringToBeSearched, boyer);
+    preprocessBadChar(shift, borderPosition, boyer);
  
-    while(boyer->shiftPatern <= boyer->dataLength - boyer->paternLength){
-        boyer->shiftingIndex = boyer->paternLength-1;
-
-        while(boyer->shiftingIndex >= 0 && patern[boyer->shiftingIndex] == data[boyer->shiftPatern+boyer->shiftingIndex]){
-            boyer->shiftingIndex = boyer->shiftingIndex - 1;
-        }//end while
-        if (boyer->shiftingIndex<0){
-            printf("pattern occurs at shift = %d\n", boyer->shiftPatern);
-            boyer->numberOfSearchFound++;
-            boyer->shiftPatern = boyer->shiftPatern + boyer->shift[0];
-        }else{
+    while(boyer->shiftPatern <= boyer->dataLength-boyer->patternLength){
+        int j = boyer->patternLength-1;
+        while(j >= 0 && stringToBeSearched[j] == data[boyer->shiftPatern+j]){
+            j = j - 1;
             boyer->numberOfPatternSwitch++;
-            boyer->shiftPatern = boyer->shiftPatern + boyer->shift[boyer->shiftingIndex+1];
+        }//end while
+        if (j<0){
+            //printf("pattern occurs at shift = %d\n", boyer->shiftPatern);
+            boyer->shiftPatern = boyer->shiftPatern + shift[0];
+            boyer->numberOfSearchFound++;
+        }else{
+            boyer->shiftPatern = boyer->shiftPatern + shift[j+1];
+            boyer->numberOfPatternSwitch++;
         }//end if
     }//end while
     return boyer;
@@ -112,7 +114,7 @@ void boyerMoore(Instance* vars){
     time_t end = clock();
 
     int numberOfSearchFound = boyer->numberOfSearchFound;
-    int numberOfPatternSwitch = boyer->numberOfPatternSwitch;
+    int numberOfPatternSwitch = boyer->numberOfPatternSwitch-1;
     
     //print the outcome
     printf("Total number search found: %d\n", numberOfSearchFound);
