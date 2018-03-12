@@ -6,11 +6,42 @@
  ***********************************/
  
 #include "header.h"
+
+Boyer* newBoyer(){
+    Boyer* new = malloc(sizeof(Boyer));
+    new->suffixIndex=0;
+    new->shiftingIndex=0;
+    new->shiftPaternBetweenSearch = 0;
+    new->paternLength = 0;
+    new->searchLength = 0;
+    new->numberOfSearchFound = 0;
+    new->numberOfPatternSwitch = 0;
+    new->borderPosition = NULL;
+    new->shift = NULL;
+    return new;
+}//end constructor
+
+void setTables(Boyer* vars, char* search, char* patern){
+    int paternLength = strlen(patern);
+    int searchLength = strlen(search);
+    vars->borderPosition = malloc(sizeof(int)*paternLength+1);
+    vars->searchLength = malloc(sizeof(int)*paternLength+1);
+}//end setter
+
+void setIndexToZero(Boyer* vars){
+    vars->suffixIndex = 0;
+    vars->shiftingIndex = 0;
+}//end setter
+
+void setIndexForGoodSuffix(Boyer* vars){
+    vars->suffixIndex = vars->paternLength;
+    vars->shiftingIndex = vars->paternLength;
+}//end setter
  
 void preprocessGoodSuff(int* shift, int* borderPosition, char* patern, int paternLength){
     int i=paternLength, j=paternLength+1;
     borderPosition[i]=j;
- 
+    //loop through between the index
     while(i>0){
         while(j<=paternLength && patern[i-1] != patern[j-1]){
             if (shift[j]==0){
@@ -24,7 +55,6 @@ void preprocessGoodSuff(int* shift, int* borderPosition, char* patern, int pater
     }//end while
 }//end func
  
-//bad char
 void preprocessBadChar(int* shift, int* borderPosition, char* patern, int paternLength){
     int i, j;
     j = borderPosition[0];
@@ -38,12 +68,12 @@ void preprocessBadChar(int* shift, int* borderPosition, char* patern, int patern
     }//end for
 }//end func
  
-/*Search for a pattern in given text using
-  Boyer Moore algorithm with Good suffix rule */
 void search(char* search, char* patern){
-    int shiftPaternBetweenSearchString=0, j;
-    int paternLength = strlen(patern);
-    int searchLength = strlen(search);
+    Boyer* boyer = newBoyer();
+
+    // int shiftPaternBetweenSearchString=0, j;
+    // int paternLength = strlen(patern);
+    // int searchLength = strlen(search);
  
     int borderPosition[paternLength+1], shift[paternLength+1];
  

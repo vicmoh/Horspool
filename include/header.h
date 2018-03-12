@@ -25,15 +25,17 @@ typedef struct{
     //prepocess good suffix vars
     int suffixIndex; int shiftingIndex;
     //preprocess bad character vars
-    
     // search vars
     int shiftPaternBetweenSearch;
     int paternLength;
-    int paternLength;
+    int searchLength;
+    //table
+    int* borderPosition;
+    int* shift;
     //ouput vars
     int numberOfSearchFound;
     int numberOfPatternSwitch;
-}Helper;
+}Boyer;
 
 //libs and macros
 #include <string.h>
