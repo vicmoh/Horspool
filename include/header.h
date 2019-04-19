@@ -1,6 +1,6 @@
 /***********************************
  * Vicky Mohammad
- * 0895381
+ * mohammav@uoguelph.ca
  ***********************************/
 
 #ifndef HEADER_H

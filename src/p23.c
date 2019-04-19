@@ -1,6 +1,6 @@
 /***********************************
  * Vicky Mohammad
- * 0895381
+ * mohammav@uoguelph.ca
  * referenced: http://www-igm.univ-mlv.fr/~lecroq/string/node14.html#SECTION00140
  * referenced: https://www.geeksforgeeks.org/boyer-moore-algorithm-good-suffix-heuristic/
  ***********************************/
